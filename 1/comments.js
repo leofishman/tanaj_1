@@ -11,17 +11,26 @@ $.getJSON("bereshit-sp-comments-json.js", function(bereshit_comments) {
                 versiculos = '';
                 bereshit_array.chapter[chapter_number].forEach(versicles);
                 function versicles(versicle, versicle_number) {
-                    comment = bereshit_comments_array.chapter[0][chapter_number][versicle_number].toString();
+                    console.log(chapter_number);
+                    if (typeof bereshit_comments_array.chapter[chapter_number][versicle_number] !== 'undefined') {
+                        comment = bereshit_comments_array.chapter[chapter_number][versicle_number].toString();
+                    } else {
+                        comment = '';
+                    }
+                    
                     prefix = '<div class="bereshit-versicle"><div class="bereshit-' + (chapter_number + 1) + '-versicle-' + (versicle_number + 1) + '">';
                     suffix = '</div>';
-                   
-                    suffix += '</div>';
+                  //  console.log(bereshit_comments_array.chapter[chapter_number][versicle_number], comment);
+                    if (comment!=''){
+                        suffix += '<div class="bereshit-comment' + (chapter_number + 1) + '-versicle-' + (versicle_number + 1) + '">'
+                        suffix += comment + '</div>';
+                    }
+                    suffix += '</div>'
                     versiculos += prefix + (versicle_number + 1) + ":" + versicle + suffix;
 
                 }
 
                 document.getElementById("bereshit").innerHTML += capitulo + versiculos + '</div>';
-
             }
 
         });
